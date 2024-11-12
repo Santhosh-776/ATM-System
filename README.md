@@ -10,7 +10,6 @@ This **README** file serves as a **user manual** to guide you through the proces
 3. [Git Workflow for Developers](#git-workflow-for-developers)
 4. [Creating and Submitting a Pull Request](#creating-and-submitting-a-pull-request)
 5. [Best Practices](#best-practices)
-6. [Screenshots](#screenshots)
 
 ## Repository Overview
 This repository hosts the code for the **ATM Software** project. It follows a distributed development model where multiple developers can contribute by working on different branches and submitting pull requests.
