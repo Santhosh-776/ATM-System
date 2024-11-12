@@ -16,13 +16,13 @@ public class ATM {
         this.PIN = PIN;
     }
 
-    public void selectLanguage(String language) {
-        System.out.println("Language selected: " + language);
-    }
-
     public void displayOptions() {
         System.out.println("1. Withdraw");
         System.out.println("2. Deposit");
         System.out.println("3. Mini Statement");
+    }
+
+    public void selectLanguage(String language) {
+        System.out.println("Language selected: " + language);
     }
 }

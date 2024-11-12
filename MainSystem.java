@@ -4,57 +4,83 @@ public class MainSystem {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // Create instances
-        Bank bank = new Bank("MyBank", "New York");
-        ATM atm = new ATM("New York", "MyBank");
-        atm.setPIN(1234); // Set a default PIN for simulation
+        Bank bank = new Bank("VEGA7", "Vellore");
+        ATM atm = new ATM("Vellore", "VEGA7");
+        atm.setPIN(1234); 
 
-        Customer customer = new Customer("John Doe", 1234567890, "john.doe@example.com", "CUST123");
-        Account account = new Account("123456789", "MyBank", 5000);
+        Account savingsAccount = new Savings("123456789", "VEGA7", 5000);
+        Account checkingAccount = new Checkings("987654321", "VEGA7", 3000);
+        bank.addAccount(savingsAccount);
+        bank.addAccount(checkingAccount);
 
-        System.out.println("Welcome to MyBank ATM!");
+        System.out.println("Welcome to VEGA7 ATM!");
 
-        // Validate PIN
-        System.out.print("Enter your PIN: ");
-        int enteredPIN = scanner.nextInt();
-        if (!atm.validatePin(enteredPIN)) {
-            System.out.println("Invalid PIN. Exiting.");
-            return;
+        boolean isAuthenticated = false;
+        while (!isAuthenticated) {
+            try {
+                System.out.print("Enter your PIN: ");
+                int enteredPIN = scanner.nextInt();
+                if (!atm.validatePin(enteredPIN)) {
+                    throw new InvalidPINException("Invalid PIN. Please try again.");
+                }
+                isAuthenticated = true;
+            } catch (InvalidPINException e) {
+                System.out.println(e.getMessage());
+            }
         }
 
-        // Display options
+        Account selectedAccount = null;
+        while (selectedAccount == null) {
+            try {
+                System.out.println("Select Account Type: 1. Savings 2. Checking");
+                int accountTypeChoice = scanner.nextInt();
+                if (accountTypeChoice == 1) {
+                    selectedAccount = savingsAccount;
+                } else if (accountTypeChoice == 2) {
+                    selectedAccount = checkingAccount;
+                } else {
+                    throw new InvalidTransactionException("Invalid account type selected.");
+                }
+            } catch (InvalidTransactionException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
         while (true) {
             atm.displayOptions();
             System.out.print("Choose an option (1-3): ");
             int choice = scanner.nextInt();
 
-            switch (choice) {
-                case 1: // Withdraw
-                    System.out.print("Enter withdrawal amount: ");
-                    int withdrawAmount = scanner.nextInt();
-                    account.cashWithdraw(withdrawAmount);
-                    break;
+            try {
+                switch (choice) {
+                    case 1: 
+                        System.out.print("Enter withdrawal amount: ");
+                        int withdrawAmount = scanner.nextInt();
+                        selectedAccount.cashWithdraw(withdrawAmount);
+                        break;
 
-                case 2: // Deposit
-                    System.out.print("Enter deposit amount: ");
-                    int depositAmount = scanner.nextInt();
-                    account.cashDeposit(depositAmount);
-                    break;
+                    case 2: 
+                        System.out.print("Enter deposit amount: ");
+                        int depositAmount = scanner.nextInt();
+                        selectedAccount.cashDeposit(depositAmount);
+                        break;
 
-                case 3: // Mini Statement
-                    account.miniStatement();
-                    break;
+                    case 3: 
+                        selectedAccount.miniStatement();
+                        break;
 
-                default:
-                    System.out.println("Invalid option. Try again.");
-                    break;
+                    default:
+                        System.out.println("Invalid option. Try again.");
+                        break;
+                }
+            } catch (InsufficientBalanceException | InvalidTransactionException e) {
+                System.out.println("Error: " + e.getMessage());
             }
 
-            // Another transaction?
             System.out.print("Perform another transaction? (yes/no): ");
             String anotherTransaction = scanner.next();
             if (!anotherTransaction.equalsIgnoreCase("yes")) {
-                System.out.println("Thank you for using MyBank ATM!");
+                System.out.println("Thank you for using VEGA7 ATM!");
                 break;
             }
         }

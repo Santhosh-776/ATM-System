@@ -6,7 +6,14 @@ public class Withdrawal extends Transaction {
         this.accountNumber = accountNumber;
     }
 
-    public int getBalance(int currentBalance) {
+    public int withdrawAmount(int currentBalance) throws InsufficientBalanceException {
+        if (super.amount > currentBalance) {
+            throw new InsufficientBalanceException("Withdrawal amount exceeds current balance.");
+        }
         return currentBalance - super.amount;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
     }
 }
