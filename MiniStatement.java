@@ -1,13 +1,11 @@
-import java.sql.Date;
-public class MiniStatement extends Transaction {
+public class MiniStatement {
     private String accountNumber;
 
-    public MiniStatement(Date date, String accountNumber) {
-        super(date, "Mini Statement", 0);
+    public MiniStatement(String accountNumber) {
         this.accountNumber = accountNumber;
     }
 
-    public void generateStatement() {
-        System.out.println("Generating mini statement for account: " + accountNumber);
+    public void getBalance(int balance) {
+        System.out.println("Account: " + accountNumber + ", Balance: " + balance);
     }
 }

@@ -9,10 +9,14 @@ public class Account {
         this.balance = balance;
     }
 
-    public void cashWithdrawal(int amount) {
+    public void accountSelection(String accountType) {
+        System.out.println("Account selected: " + accountType);
+    }
+
+    public void cashWithdraw(int amount) {
         if (amount <= balance) {
             balance -= amount;
-            System.out.println("Withdrawal successful. New balance: " + balance);
+            System.out.println("Withdrawal successful. Remaining balance: " + balance);
         } else {
             System.out.println("Insufficient balance.");
         }
@@ -24,14 +28,10 @@ public class Account {
     }
 
     public void miniStatement() {
-        System.out.println("Generating mini statement...");
+        System.out.println("Mini Statement: Your current balance is " + balance);
     }
 
     public int getBalance() {
         return balance;
-    }
-
-    public String getAccountNumber() {
-        return accountNumber;
     }
 }

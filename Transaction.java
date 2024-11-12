@@ -1,11 +1,9 @@
-import java.util.Date;
-
 public class Transaction {
-    protected Date date;
-    protected String type;
-    protected int amount;
+    private String date;
+    private String type;
+    private int amount;
 
-    public Transaction(Date date, String type, int amount) {
+    public Transaction(String date, String type, int amount) {
         this.date = date;
         this.type = type;
         this.amount = amount;

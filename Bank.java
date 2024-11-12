@@ -11,7 +11,7 @@ public class Bank {
         System.out.println("Authorizing account: " + accountNumber);
     }
 
-    public String getBankName() {
-        return bankName;
+    public void manageTransaction() {
+        System.out.println("Managing transaction...");
     }
 }
